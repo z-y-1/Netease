@@ -1,22 +1,22 @@
 <template>
   <div id="footerContainer">
-      <div class="guideItem">
+      <div class="guideItem" @click="goTo('/home')">
           <i class="iconfont icon-shouye"></i>
           <span>首页</span>
       </div>
-      <div class="guideItem">
+      <div class="guideItem" @click="goTo('/classify')">
           <i class="iconfont icon-fenlei"></i>
           <span>分类</span>
       </div>
-      <div class="guideItem">
+      <div class="guideItem" @click="goTo('/buy')">
           <i class="iconfont icon-zhidemai"></i>
           <span>值得买</span>
       </div>
-      <div class="guideItem">
+      <div class="guideItem" @click="goTo('/cart')">
           <i class="iconfont icon-qicheqianlian-"></i>
           <span>购物车</span>
       </div>
-      <div class="guideItem">
+      <div class="guideItem" @click="goTo('/myself')">
           <i class="iconfont icon-profile"></i>
           <span>我的</span>
       </div>
@@ -25,7 +25,11 @@
 
 <script>
 export default {
-
+    methods:{
+        goTo(path){
+            path !== this.$route.path && this.$router.push(path)
+        }
+    }
 }
 </script>
 
