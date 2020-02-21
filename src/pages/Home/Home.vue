@@ -8,8 +8,9 @@
         </div>
         <div class="loginBtn">登录</div>
       </div>
+      <NavAll v-if="isShowNavAll" />
       <div class="nav">
-        <div class="navList">
+        <div class="navList" v-show="!isShowNavAll">
           <div class="navContainer">
             <div class="tab active">
               <span>推荐</span>
@@ -20,10 +21,11 @@
           </div>
         </div>
         <div class="linner"></div>
-        <div class="arrows">
+        <div class="arrows" @click="unfold">
           <div class="arrowsIcon"></div>
         </div>
       </div> 
+      
       <div class="swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item,index) in swiperData.focusList" :key="index"><img :src="item.picUrl" alt=""></div>
@@ -101,7 +103,7 @@
           <div class="line"></div>
           <img src="../../common/img/chongdianbao.webp" alt="">
         </div>
-        <div class="adList">
+        <div class="adList" v-if="swiperData.categoryHotSellModule">
           <a href="" class="ad-item" v-for="(item,index) in adItemData" :key="index">
             <div class="name">{{item.categoryName}}</div>
             <img :src="item.showPicUrl" alt="">
@@ -213,20 +215,21 @@
 import BScroll from 'better-scroll'
 import 'swiper/css/swiper.min.css'
 import Swiper from 'swiper'
+import {mapState} from 'vuex' 
+import NavAll from '../../components/NavAll/NavAll'
 export default {
+  components:{
+    NavAll
+  },
   data(){
     return {
-      navData:[],
-      swiperData:{},
-      adItemData:[]
+      isShowNavAll:false
     }
   },
   async beforeMount(){
-    let navData = await this.$API.getNavList()
-    this.$data.navData = navData.data
-    let swiperData = await this.$API.getSwiperImg()
-    this.$data.swiperData = swiperData.data
-    this.$nextTick(() => {
+    this.$store.dispatch('getNavListAction')
+    this.$store.dispatch('getSwiperImgAction',()=>{
+      this.$nextTick(() => {
           new Swiper('.swiper-container', {
             pagination: {
               el: '.swiper-pagination',
@@ -236,10 +239,7 @@ export default {
             loop: true
           })
         })
-    let adItemData = swiperData.data.categoryHotSellModule.categoryList;
-    adItemData.splice(0,2)
-    this.$data.adItemData = adItemData
-    console.log(swiperData)
+    })
   },
   
   mounted(){
@@ -249,6 +249,26 @@ export default {
       click:false
     });
   },
+  computed:{
+    ...mapState({
+      navData: state=> state.navData
+    }),
+    ...mapState({
+      swiperData: state=> state.swiperData
+    }),
+    adItemData(){
+      let result = this.$store.state.swiperData.categoryHotSellModule.categoryList;
+      result.splice(0,2)
+      return result
+    }
+    
+  },
+  methods:{
+    unfold (){
+      this.$data.isShowNavAll = !this.$data.isShowNavAll
+      console.log(this.$data.isShowNavAll);
+    }
+  }
   // watch: {
   //     // 解决swiper滑动方式一
   //     categorys(){
@@ -266,7 +286,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   #homePageContainer
     // overflow hidden
     width 100%
@@ -276,7 +296,7 @@ export default {
     .header
       width 750px
       height 88px
-      // background-color blue
+      background-color #fff
       display flex
       justify-content space-around
       padding 16px 30px
@@ -321,10 +341,12 @@ export default {
     .nav
       position relative
       overflow hidden
+      background-color #fff
       .navList 
         float left
         overflow hidden
         width 590px
+        touch-action: none
         .navContainer
           float left
           width 1460px
@@ -333,13 +355,25 @@ export default {
           padding 0 30px
         .tab
           float left
-          
           span 
             display block
             height 60px
             padding 0 16px
             font-size 28px
             margin-right 20px
+            box-sizing border-box
+            position relative
+        .tab.active
+          span 
+            color #dd1a21
+            &:after
+              content ''
+              position absolute
+              left 0
+              bottom 0
+              width 100px
+              height 4px
+              background-color #dd1a21
       .linner
         float left
         width 60px
@@ -348,6 +382,10 @@ export default {
         float left
         width 100px
         height 60px
+        z-index 99
+        position absolute
+        right 0
+        top 0
         .arrowsIcon
           width 30px
           height 30px
@@ -357,6 +395,7 @@ export default {
     .swiper-container
       width 100%
       height 370px
+      background-color #fff
       .swiper-wrapper
         width 100%
         height 370px
@@ -374,6 +413,7 @@ export default {
       display flex
       justify-content space-between
       align-items center
+      background-color #fff
       li
         img 
           vertical-align:middle
@@ -384,6 +424,7 @@ export default {
       // height 341px
       padding-bottom 32px
       overflow hidden
+      background-color #fff
       a
         float left
         display flex

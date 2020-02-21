@@ -3,7 +3,7 @@ import Classify from '../pages/Classify/Classify.vue'
 import Cart from '../pages/Cart/Cart.vue'
 import  Buy from '../pages/Buy/Buy.vue'
 import Myself from '../pages/Myself/Myself.vue'
-
+import ClassifyDetail from '../pages/Classify/ClassifyDetail/ClassifyDetail.vue'
 export default [
 	{
         path:'/home',
@@ -15,7 +15,13 @@ export default [
     },
 	{
         path:'/classify',
-        component:Classify
+        component:Classify,
+        children:[
+            {
+                path:'/classify/item/:id',
+                component:ClassifyDetail
+            }
+        ]
     },
 	{
         path:'/buy',
