@@ -4,5 +4,5 @@ export default {
     adItemData:[],
     cateNavDatas:[],
     cateListsDatas:[],
-    id:0
+    id:11
 }

@@ -28,6 +28,8 @@ export default {
     methods:{
         goTo(path){
             path !== this.$route.path && this.$router.push(path)
+            this.$store.state.id = this.$route.params.id
+            
         }
     }
 }

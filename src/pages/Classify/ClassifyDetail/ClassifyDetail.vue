@@ -3,7 +3,7 @@
     <img src="../../../common/img/chaozhibaopin.webp" alt="">
     <div v-for="(item,index) in cateListsDatas" :key="index" class="item">
       <div v-if="item.id == id">
-        <div class="thumbnail" v-for="(ware,index) in item.categoryList" :key="index">
+        <div class="thumbnail" v-for="(ware,index) in item.categoryList || item.subCateList" :key="index">
           <img :src="ware.wapBannerUrl" alt="">
           <span>{{ware.name}}</span>
         </div>
@@ -23,6 +23,11 @@ export default {
   // },
   beforeCreate(){
     this.$store.dispatch('getCateListsDatasAction')
+    //切换后也可默认选中推荐专区
+      this.$router.replace('/classify/item/11')
+      this.$store.state.id = this.$route.params.id
+     
+    
   },
   updated(){
     console.log(this.$route.params.id,this.id);
@@ -55,10 +60,10 @@ export default {
         .thumbnail
           float left
           margin-right 33px
-          &:nth-child(3)
+          &:nth-child(3n)
             margin-right 0
-          &:nth-child(6)
-            margin-right 0
+          // &:nth-child(6)
+          //   margin-right 0
           img 
             width 144px
             height 144px

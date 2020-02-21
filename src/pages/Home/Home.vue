@@ -15,7 +15,7 @@
             <div class="tab active">
               <span>推荐</span>
             </div>
-            <div class="tab" v-for="(item,index) in navData" :key="index">
+            <div class="tab" v-for="(item,index) in navData" :key="index" @click="isClick(index)" :class="{active: index === targetIndex}">
               <span>{{item.name}}</span>
             </div>
           </div>
@@ -223,7 +223,8 @@ export default {
   },
   data(){
     return {
-      isShowNavAll:false
+      isShowNavAll:false,
+      targetIndex:null
     }
   },
   async beforeMount(){
@@ -236,7 +237,7 @@ export default {
               type:'progressbar',
               progressbarOpposite: true
             },
-            loop: true
+            loop: true,
           })
         })
     })
@@ -267,6 +268,9 @@ export default {
     unfold (){
       this.$data.isShowNavAll = !this.$data.isShowNavAll
       console.log(this.$data.isShowNavAll);
+    },
+    isClick(index){
+      this.trargetIndex = index
     }
   }
   // watch: {

@@ -8,20 +8,29 @@
     </div>
     <div class="navList">
       <ul class="navItem">
-        <li class="item" v-for="(item,index) in cateNavDatas.categoryL1List" :key="index" @click="toId(item.id)">
+        <li class="item" v-for="(item,index) in cateNavDatas.categoryL1List" :key="index" @click="toId($event,item.id,index)" :class="{active:index === targetIndex}">
           <div class="txt"> 
               {{item.name}}
           </div>
         </li>
       </ul>
     </div>
-    <router-view/>
+    <ClassifyDetail/>
   </div>
 </template>
 
 <script>
 import {mapState} from 'vuex'
+import ClassifyDetail from './ClassifyDetail/ClassifyDetail'
 export default {
+  data(){
+    return {
+      targetIndex:null
+    }
+  },
+  components:{
+    ClassifyDetail
+  },
   beforeCreate(){
     this.$store.dispatch('getCateNavDatasAction')
     
@@ -32,10 +41,11 @@ export default {
     })
   },
   methods:{
-    toId(id){
+    toId(e,id,index){
       this.$router.replace('/classify/item/'+ id)
       this.$store.state.id = this.$route.params.id
-      
+      console.log(e);
+      this.targetIndex = index
     }
   }
 }
@@ -91,4 +101,16 @@ export default {
             font-size 28px
         .item:first-child
           margin-top 0
+        .item.active
+          .txt
+            color #dd1a21
+            position relative
+            &:after
+              content ''
+              position absolute
+              left 16px
+              bottom 0
+              width 130px
+              height 4px
+              background-color #dd1a21
 </style>
