@@ -15,7 +15,7 @@
             <div class="tab active">
               <span>推荐</span>
             </div>
-            <div class="tab" v-for="(item,index) in navData" :key="index" @click="isClick(index)" :class="{active: index === targetIndex}">
+            <div class="tab" v-for="(item,index) in navData" :key="index" @click="isClick(index)" :class="{active:index === targetIndex}">
               <span>{{item.name}}</span>
             </div>
           </div>
@@ -247,7 +247,7 @@ export default {
     new BScroll('.navList',{
       scrollY:false,
       scrollX:true,
-      click:false
+      click:true
     });
   },
   computed:{
@@ -271,6 +271,7 @@ export default {
     },
     isClick(index){
       this.trargetIndex = index
+      console.log(this.trargetIndex);
     }
   }
   // watch: {
