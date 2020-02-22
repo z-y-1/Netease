@@ -4,6 +4,7 @@ import Cart from '../pages/Cart/Cart.vue'
 import  Buy from '../pages/Buy/Buy.vue'
 import Myself from '../pages/Myself/Myself.vue'
 import ClassifyDetail from '../pages/Classify/ClassifyDetail/ClassifyDetail.vue'
+import Search from '../pages/Search/Search.vue'
 export default [
 	{
         path:'/home',
@@ -32,8 +33,12 @@ export default [
         component:Myself
     },
 	{
-        path:'/',
-        component:Home
+        path:'/home',
+        redirect:'/search'
+    },
+    {
+        path:'/search',
+        component:Search
     }
     
 ]

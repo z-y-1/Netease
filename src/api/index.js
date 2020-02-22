@@ -1,15 +1,19 @@
 import ajax from './ajax'
 
 export const getNavList = () => ajax({
-    url:'/navlist'
+    url:'/api/navlist'
 });
 
 export const getSwiperImg = ()=> ajax({
-    url:'/swiperimg'
+    url:'/api/swiperimg'
 })
 export const getCateNavDatas = ()=> ajax({
-    url:'/catenavdatas'
+    url:'/api/catenavdatas'
 })
 export const getCateListsDatas = ()=> ajax({
-    url:'/catelistsdatas'
+    url:'/api/catelistsdatas'
+})
+export const getHotWorldDatas = ()=> ajax({
+    url:'/foo/xhr/search/init.json',
+    method:"POST"
 })

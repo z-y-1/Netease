@@ -2,7 +2,8 @@ import {
     SAVE_NAVLIST,
     SAVE_SWIPERDATA,
     SAVE_CATENAVDATAS,
-    SAVE_CATELISTSDATAS
+    SAVE_CATELISTSDATAS,
+    SAVE_HOTWORLDDATAS
 } from './mutations-type'
 
 
@@ -18,5 +19,9 @@ export default{
     },
     [SAVE_CATELISTSDATAS] (state,cateListsDatas){
         state.cateListsDatas = cateListsDatas
-    }
+    },
+    [SAVE_HOTWORLDDATAS] (state,hotWorldDatas){
+        state.hotWorldDatas = hotWorldDatas
+    },
+    
 }

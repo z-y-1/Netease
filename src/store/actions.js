@@ -2,13 +2,15 @@ import {
     getNavList,
     getSwiperImg,
     getCateNavDatas,
-    getCateListsDatas
+    getCateListsDatas,
+    getHotWorldDatas
 } from '../api'
 import {
     SAVE_NAVLIST,
     SAVE_SWIPERDATA,
     SAVE_CATENAVDATAS,
-    SAVE_CATELISTSDATAS
+    SAVE_CATELISTSDATAS,
+    SAVE_HOTWORLDDATAS
 } from './mutations-type'
 
 export default{
@@ -28,5 +30,10 @@ export default{
     async getCateListsDatasAction({commit}){
         let result = await getCateListsDatas()
         commit(SAVE_CATELISTSDATAS,result.data)
-    }
+    },
+    async getHotWorldDatasAction({commit}){
+        let result = await getHotWorldDatas()
+        commit(SAVE_HOTWORLDDATAS,result.data)
+    },
+    
 }

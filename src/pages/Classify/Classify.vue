@@ -1,7 +1,7 @@
 <template>
   <div id="classfyPageContainer">
     <div class="header">
-      <div class="search">
+      <div class="search" @click="toSearch">
         <i class="iconfont icon-sousuolanfadajing"></i>
         <span>搜索商品, 共20266款好物</span>
       </div>
@@ -46,6 +46,9 @@ export default {
       this.$store.state.id = this.$route.params.id
       console.log(e);
       this.targetIndex = index
+    },
+    toSearch(){
+      this.$router.push('/search')
     }
   }
 }
@@ -58,8 +61,9 @@ export default {
       box-sizing border-box
       width 100%
       height 88px
-      position relative
+      position fixed
       overflow hidden
+      z-index 5
       .search
           width 690px
           height 56px
@@ -86,6 +90,8 @@ export default {
     .navList
       width 162px
       height 1120px
+      position fixed
+      top 88px
       .navItem
         width 100%
         height 1120px

@@ -2,7 +2,7 @@
   <div id="homePageContainer">
       <div class="header">
         <a href="" class="logo"></a>
-        <div class="search">
+        <div class="search" @click="toSearch">
           <i class="iconfont icon-sousuolanfadajing"></i>
           <span>搜索商品, 共20266款好物</span>
         </div>
@@ -272,6 +272,9 @@ export default {
     isClick(index){
       this.trargetIndex = index
       console.log(this.trargetIndex);
+    },
+    toSearch(){
+      this.$router.push('/search')
     }
   }
   // watch: {
